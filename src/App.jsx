@@ -10,7 +10,7 @@ const incrementedID = (function() {
   })()
 
 const initialData = {
-  currentUser: {name: "Bob"},
+  // currentUser: {name: "Bob"},
   messages: [
     {
       username: "Bob",
@@ -35,22 +35,31 @@ class App extends Component {
     console.log("componentDidMount <App />");
     setTimeout(() => {
       console.log("Simulating incoming message");
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
+      const newMessage = {id: incrementedID(), username: "Michelle", content: "Hello there!"};
       const messages = this.state.messages.concat(newMessage)
       this.setState({messages: messages})
     }, 6000);
   }
 
   render() {
-
-    let {name} = this.state.currentUser
+    let {name} = this.state.currentUser || ''
     return (
       <div>
         <Nav></Nav>
         <MessageList messages={this.state.messages}></MessageList>
-        <ChatBar user={name}></ChatBar>
+        <ChatBar user={name} insertMessage={this.insertMessage}></ChatBar>
       </div>
     );
   }
+
+  insertMessage = message => {
+    message.id = incrementedID()
+    console.log(message)
+    this.setState((state) => {
+      state.messages.push(message)
+      return state
+    })
+  }
 }
+
 export default App;
