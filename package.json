@@ -1,5 +1,5 @@
 {
-  "name": "Chatty App",
+  "name": "chattyapp",
   "version": "0.0.1",
   "description": "Real-time online chat SPA with React.js",
   "scripts": {

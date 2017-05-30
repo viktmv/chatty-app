@@ -3,26 +3,9 @@ import ChatBar from './ChatBar.jsx'
 import MessageList from './MessageList.jsx'
 import Nav from './Nav.jsx'
 
-
-const incrementedID = (function() {
-    let counter = 0
-    return () => counter++
-  })()
-
 const initialData = {
   // currentUser: {name: "Bob"},
-  messages: [
-    {
-      username: "Bob",
-      content: "Has anyone seen my marbles?",
-      id: incrementedID()
-    },
-    {
-      username: "Anonymous",
-      content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-      id: incrementedID()
-    }
-  ]
+  messages: []
 }
 
 class App extends Component {
@@ -38,15 +21,14 @@ class App extends Component {
 
     socket.onopen = () => {
       console.log('Connected to server')
-
     }
+
+    socket.onmessage = (event) => {
+      console.log(event.data)
+      this.setState(state => state.messages.push(JSON.parse(event.data)))
+    }
+
     console.log("componentDidMount <App />");
-    setTimeout(() => {
-      console.log("Simulating incoming message");
-      const newMessage = {id: incrementedID(), username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      this.setState({messages: messages})
-    }, 6000);
   }
 
   render() {
@@ -61,13 +43,10 @@ class App extends Component {
   }
 
   insertMessage = message => {
-    message.id = incrementedID()
+    console.log('message sent')
     this.socket.send(JSON.stringify(message))
-    this.setState((state) => {
-      state.messages.push(message)
-      return state
-    })
   }
+
 }
 
 export default App;
