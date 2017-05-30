@@ -3,28 +3,42 @@ import ChatBar from './ChatBar.jsx'
 import MessageList from './MessageList.jsx'
 import Nav from './Nav.jsx'
 
+
+const incrementedID = (function() {
+    let counter = 0
+    return () => counter++
+  })()
+
+const initialData = {
+  currentUser: {name: "Bob"},
+  messages: [
+    {
+      username: "Bob",
+      content: "Has anyone seen my marbles?",
+      id: incrementedID()
+    },
+    {
+      username: "Anonymous",
+      content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
+      id: incrementedID()
+    }
+  ]
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: [
-        {
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-        },
-        {
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
-        }
-      ],
-      counter: 0
-    }
-    this.newID = this.newID.bind(this);
+    this.state = initialData
   }
-  newID() {
-    return this.state.counter++
+
+  componentDidMount() {
+    console.log("componentDidMount <App />");
+    setTimeout(() => {
+      console.log("Simulating incoming message");
+      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
+      const messages = this.state.messages.concat(newMessage)
+      this.setState({messages: messages})
+    }, 6000);
   }
 
   render() {
@@ -33,7 +47,7 @@ class App extends Component {
     return (
       <div>
         <Nav></Nav>
-        <MessageList messages={this.state.messages} newID={this.newID}></MessageList>
+        <MessageList messages={this.state.messages}></MessageList>
         <ChatBar user={name}></ChatBar>
       </div>
     );
