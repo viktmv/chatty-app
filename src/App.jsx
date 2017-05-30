@@ -4,7 +4,7 @@ import MessageList from './MessageList.jsx'
 import Nav from './Nav.jsx'
 
 const initialData = {
-  // currentUser: {name: "Bob"},
+  currentUser: '',
   messages: []
 }
 
@@ -47,6 +47,7 @@ class App extends Component {
     this.socket.send(JSON.stringify(message))
   }
 
+  setCurrentUser = username => this.setState({currentUser: username})
 }
 
 export default App;

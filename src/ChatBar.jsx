@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-const defaultState = {content: '', username: ''}
+const defaultState = {content: ''}
 
 class ChatBar extends Component {
   constructor(props) {
@@ -35,6 +35,8 @@ class ChatBar extends Component {
       this.props.insertMessage({content, username})
       this.setState(defaultState)
     }
+
+    this.props.setCurrentUser(username)
   }
   updateUser = (e) => {
     this.setState({username: e.target.value})
