@@ -1,30 +1,21 @@
 {
-  "name": "react-simple-boilerplate",
-  "version": "1.0.0",
-  "description": "Simple and lightweight Boilerplate for ReactJS projects",
+  "name": "Chatty App",
+  "version": "0.0.1",
+  "description": "Real-time online chat SPA with React.js",
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate.git"
+    "url": "https://github.com/viktmv/chattyapp"
   },
-  "keywords": [
-    "react",
-    "reactjs",
-    "boilerplate",
-    "reload",
-    "live",
-    "edit",
-    "webpack"
-  ],
-  "author": "Noah-Jerome Lotzer <n.lotzer@neusta.de>",
+  "author": "Viktor T.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate/issues"
+    "url": "https://github.com/viktmv/chattyapp/issues"
   },
-  "homepage": "https://github.com/noahlotzer/react-simple-boilerplate",
+  "homepage": "https://github.com/viktmv/chattyapp",
   "engines": {
     "node": ">=6.0.0"
   },
