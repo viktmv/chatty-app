@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 const defaultState = {content: '', username: ''}
 
 class ChatBar extends Component {

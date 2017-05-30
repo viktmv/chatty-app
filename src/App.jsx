@@ -29,9 +29,17 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = initialData
+
+    this.socket = new WebSocket('ws://localhost:3001')
   }
 
   componentDidMount() {
+    let {socket} = this
+
+    socket.onopen = () => {
+      console.log('Connected to server')
+
+    }
     console.log("componentDidMount <App />");
     setTimeout(() => {
       console.log("Simulating incoming message");
@@ -54,7 +62,7 @@ class App extends Component {
 
   insertMessage = message => {
     message.id = incrementedID()
-    console.log(message)
+    this.socket.send(JSON.stringify(message))
     this.setState((state) => {
       state.messages.push(message)
       return state
