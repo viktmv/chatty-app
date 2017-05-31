@@ -5,7 +5,8 @@ import Nav from './Nav.jsx'
 
 const initialData = {
   currentUser: '',
-  messages: []
+  messages: [],
+  usersOnline: 0
 }
 
 class App extends Component {
@@ -24,18 +25,10 @@ class App extends Component {
     }
 
     socket.onmessage = (event) => {
-      let {message} = JSON.parse(event.data)
+      let {message, counter} = JSON.parse(event.data)
 
-      let exists
-      this.state.messages.forEach(m => {
-        exists = m.id === message.id
-             ? true
-             : false
-      })
-
-      if (exists) return
-
-      this.setState(state => state.messages.push(message))
+      if (counter) this.updateCounter(counter)
+      if (message) this.updateMessage(message)
     }
 
     console.log("componentDidMount <App />");
@@ -45,11 +38,30 @@ class App extends Component {
     let {name} = this.state.currentUser || ''
     return (
       <div>
-        <Nav></Nav>
+        <Nav count={this.state.usersOnline}></Nav>
         <MessageList messages={this.state.messages}></MessageList>
         <ChatBar user={name} insertMessage={this.insertMessage} setCurrentUser={this.setCurrentUser}></ChatBar>
       </div>
     );
+  }
+
+  updateCounter(counter) {
+    this.setState({ usersOnline: counter})
+  }
+
+  updateMessage(message) {
+    let exists
+    this.state.messages.forEach(m => {
+      exists = m.id === message.id
+           ? true
+           : false
+    })
+
+    if (exists) return
+
+    this.setState(state => {
+      state.messages.push(message)
+    })
   }
 
   insertMessage = message => {
