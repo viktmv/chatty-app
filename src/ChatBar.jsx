@@ -12,8 +12,8 @@ class ChatBar extends Component {
     return (
       <footer className="chatbar">
         <input className="chatbar-username" placeholder='Your name here'
-          onChange={this.updateUser}
-          value= {this.state.username} />
+          onKeyPress={this.newUsernameInput}
+        />
         <input className="chatbar-message"
           placeholder="Type a message and hit ENTER"
           value={this.state.content}
@@ -23,16 +23,26 @@ class ChatBar extends Component {
     )
   }
 
-  handleInput = (e) => {
+  handleInput = e => {
     this.setState({content: e.target.value})
   }
 
-  submitInput = (e) => {
+  newUsernameInput = e => {
+    if (e.key === 'Enter') {
+      let prevName = this.state.username || 'Anonymous'
+      let username = e.target.value
+      let content = `${prevName} changed their name to ${username}`
+
+      this.updateUser(e)
+      this.props.insertMessage({type: "postNotification", content, username})
+    }
+  }
+  submitInput = e => {
     let content = this.state.content
     let username = this.state.username || 'Anonymous'
 
     if (e.key === 'Enter') {
-      this.props.insertMessage({content, username})
+      this.props.insertMessage({type: "postMessage", content, username})
       this.setState(defaultState)
     }
 

@@ -24,8 +24,16 @@ class App extends Component {
     }
 
     socket.onmessage = (event) => {
-      let {type, message} = JSON.parse(event.data)
-      console.log(message)
+      let {message} = JSON.parse(event.data)
+
+      let exists
+      this.state.messages.forEach(m => {
+        exists = m.id === message.id
+             ? true
+             : false
+      })
+
+      if (exists) return
 
       this.setState(state => state.messages.push(message))
     }
@@ -46,7 +54,7 @@ class App extends Component {
 
   insertMessage = message => {
     console.log('message sent')
-    this.socket.send(JSON.stringify({ message, type: 'postMessage'}))
+    this.socket.send(JSON.stringify({message}))
   }
 
   setCurrentUser = username => this.setState({currentUser: username})
