@@ -24,8 +24,10 @@ class App extends Component {
     }
 
     socket.onmessage = (event) => {
-      console.log(event.data)
-      this.setState(state => state.messages.push(JSON.parse(event.data)))
+      let {type, message} = JSON.parse(event.data)
+      console.log(message)
+
+      this.setState(state => state.messages.push(message))
     }
 
     console.log("componentDidMount <App />");
@@ -37,14 +39,14 @@ class App extends Component {
       <div>
         <Nav></Nav>
         <MessageList messages={this.state.messages}></MessageList>
-        <ChatBar user={name} insertMessage={this.insertMessage}></ChatBar>
+        <ChatBar user={name} insertMessage={this.insertMessage} setCurrentUser={this.setCurrentUser}></ChatBar>
       </div>
     );
   }
 
   insertMessage = message => {
     console.log('message sent')
-    this.socket.send(JSON.stringify(message))
+    this.socket.send(JSON.stringify({ message, type: 'postMessage'}))
   }
 
   setCurrentUser = username => this.setState({currentUser: username})
