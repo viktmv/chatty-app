@@ -11,7 +11,7 @@ class Message extends Component {
       return (
         <div className="message">
           <span className={`message-username ${this.props.colour}`}>{this.props.name}</span>
-          <span className="message-content">{this.props.content}</span>
+          <span className="message-content">{this.imgCheck()}</span>
         </div>
       )
     else return (
@@ -19,6 +19,12 @@ class Message extends Component {
           {this.props.content}
         </div>
       )
+  }
+
+  imgCheck() {
+    return /\.(jpe?g)|(png)|(gif)$/gi.test(this.props.content)
+    ? <img src={this.props.content} style={{width: '60%'}} />
+    : this.props.content
   }
 }
 
