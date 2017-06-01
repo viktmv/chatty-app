@@ -7,7 +7,7 @@ class MessageList extends Component {
     return (
       <main className="messages">
           {messages.map(message => {
-            return <Message key={message.id} name={message.username} content={message.content} type={message.type}></Message>
+            return <Message key={message.id} colour={message.colour} name={message.username} content={message.content} type={message.type}></Message>
           })}
       </main>
     )

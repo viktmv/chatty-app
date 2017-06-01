@@ -5,7 +5,10 @@ const defaultState = {content: ''}
 class ChatBar extends Component {
   constructor(props) {
     super(props)
-    this.state = defaultState
+    this.state = {
+      content: '',
+      colour: props.colour
+    }
   }
 
   render() {
@@ -32,18 +35,30 @@ class ChatBar extends Component {
       let prevName = this.state.username || 'Anonymous'
       let username = e.target.value
       let content = `${prevName} changed their name to ${username}`
+      let colour = this.props.colour
 
       this.updateUser(e)
-      this.props.insertMessage({type: "postNotification", content, username})
+      this.props.insertMessage({
+        type: "postNotification",
+        content,
+        username,
+        colour
+      })
     }
   }
   submitInput = e => {
     let content = this.state.content
     let username = this.state.username || 'Anonymous'
+    let colour = this.props.colour
 
     if (e.key === 'Enter') {
-      this.props.insertMessage({type: "postMessage", content, username})
-      this.setState(defaultState)
+      this.props.insertMessage({
+        type: "postMessage",
+        content,
+        username,
+        colour
+      })
+      this.setState({content: '', colour: this.props.colour})
     }
 
     this.props.setCurrentUser(username)

@@ -25,8 +25,9 @@ class App extends Component {
     }
 
     socket.onmessage = (event) => {
-      let {message, counter} = JSON.parse(event.data)
+      let {message, counter, colour} = JSON.parse(event.data)
 
+      if (colour) this.setState({ colour })
       if (counter) this.updateCounter(counter)
       if (message) this.updateMessage(message)
     }
@@ -40,7 +41,7 @@ class App extends Component {
       <div>
         <Nav count={this.state.usersOnline}></Nav>
         <MessageList messages={this.state.messages}></MessageList>
-        <ChatBar user={name} insertMessage={this.insertMessage} setCurrentUser={this.setCurrentUser}></ChatBar>
+        <ChatBar user={name} colour={this.state.colour} insertMessage={this.insertMessage} setCurrentUser={this.setCurrentUser}></ChatBar>
       </div>
     );
   }
