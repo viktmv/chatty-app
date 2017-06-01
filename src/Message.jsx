@@ -20,11 +20,11 @@ class Message extends Component {
         </div>
       )
   }
-
+  // if the content includes link to the image - display the image
   imgCheck() {
     return /\.(jpe?g)|(png)|(gif)$/gi.test(this.props.content)
-    ? <img src={this.props.content} style={{width: '60%'}} />
-    : this.props.content
+      ? <img src={this.props.content} alt="user-inserted image" style={{width: '60%'}} />
+      : this.props.content
   }
 }
 

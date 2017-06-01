@@ -13,13 +13,12 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = initialData
-
     this.socket = new WebSocket('ws://localhost:3001')
   }
 
   componentDidMount() {
+    // Connect and handle incoming messages
     let {socket} = this
-
     socket.onopen = () => {
       console.log('Connected to server')
     }
@@ -31,8 +30,6 @@ class App extends Component {
       if (counter) this.updateCounter(counter)
       if (message) this.updateMessage(message)
     }
-
-    console.log("componentDidMount <App />");
   }
 
   render() {
@@ -41,7 +38,12 @@ class App extends Component {
       <div>
         <Nav count={this.state.usersOnline}></Nav>
         <MessageList messages={this.state.messages}></MessageList>
-        <ChatBar user={name} colour={this.state.colour} insertMessage={this.insertMessage} setCurrentUser={this.setCurrentUser}></ChatBar>
+        <ChatBar
+          user={name}
+          colour={this.state.colour}
+          insertMessage={this.insertMessage}
+          setCurrentUser={this.setCurrentUser}>
+        </ChatBar>
       </div>
     );
   }
@@ -66,7 +68,6 @@ class App extends Component {
   }
 
   insertMessage = message => {
-    console.log('message sent')
     this.socket.send(JSON.stringify({message}))
   }
 
