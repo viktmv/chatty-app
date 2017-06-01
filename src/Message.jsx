@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 
 class Message extends Component {
   constructor(props) {
@@ -15,10 +15,10 @@ class Message extends Component {
         </div>
       )
     else return (
-        <div className="message system">
-          {this.props.content}
-        </div>
-      )
+      <div className="message system">
+        {this.props.content}
+      </div>
+    )
   }
   // if the content includes link to the image - display the image
   imgCheck() {
