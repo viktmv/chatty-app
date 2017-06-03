@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import ChatBar from './ChatBar.jsx'
 import MessageList from './MessageList.jsx'
 import Nav from './Nav.jsx'
@@ -45,7 +45,7 @@ class App extends Component {
           setCurrentUser={this.setCurrentUser}>
         </ChatBar>
       </div>
-    );
+    )
   }
 
   updateCounter(counter) {
@@ -53,25 +53,17 @@ class App extends Component {
   }
 
   updateMessage(message) {
-    let exists
-    this.state.messages.forEach(m => {
-      exists = m.id === message.id
-           ? true
-           : false
-    })
-
-    if (exists) return
-
+    // check if the message already exists in the messages array
+    if (this.state.messages.some(m =>  m.id === message.id)) return
+    // update the state
     this.setState(state => {
       state.messages.push(message)
     })
   }
 
-  insertMessage = message => {
-    this.socket.send(JSON.stringify({message}))
-  }
+  insertMessage = message => this.socket.send(JSON.stringify({message}))
 
   setCurrentUser = username => this.setState({currentUser: username})
 }
 
-export default App;
+export default App
