@@ -13,7 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = initialData
-    this.socket = new WebSocket('ws://localhost:3001')
+    this.socket = new WebSocket('ws://chatty-app-server.us-east-1.elasticbeanstalk.com:8081')
   }
 
   componentDidMount() {

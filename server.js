@@ -10,7 +10,7 @@ new WebpackDevServer(webpack(config), {
     ignored: /node_modules/
   }
 })
-  .listen(3000, '0.0.0.0', function (err) {
+  .listen(3000, function (err) {
     if (err) {
       console.log(err)
     }
