@@ -1,5 +1,8 @@
 Chatty App
 =====================
+### Demo
+
+http://viktmv.github.io/chatty/
 
 ### Overview
 
