@@ -1,5 +1,7 @@
 Chatty App
 =====================
+Small chat app built as an exercise in Web Sockets and React. Back end server is located in chatty-server repo.
+
 ### Demo
 
 http://viktmv.github.io/chatty/
